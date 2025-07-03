@@ -204,6 +204,12 @@
         
         const table = document.getElementById("solutionsTable"), areas = document.querySelectorAll("#canvasMap area")
 
+        if (localStorage["solved"]) {
+            var solved = JSON.parse(localStorage.getItem("solved"))
+        } else {
+            var solved = []
+        }
+
         for (let i = 0; i < solutions.length; i++) {
             const s = solutions[i]
             
@@ -213,7 +219,12 @@
             let cell2 = row.insertCell(1)
 
             cell1.innerHTML = i + 1
-            cell2.innerHTML = s.replaceAll(/[1234567890abcdefghijklmnopqrstuvwxyz]/g,"-")
+
+            if (solved.includes((i + 1).toString())) {
+                cell2.innerHTML = s
+            } else {
+                cell2.innerHTML = s.replaceAll(/[1234567890abcdefghijklmnopqrstuvwxyz]/g,"-")
+            }
         }
 
         function tap(e) {
@@ -234,6 +245,8 @@
             if (answer === solution) {
                 alert("Awesome!")
                 table.children[0].children[puzzleNo].children[1].innerHTML = solution
+                solved.push(puzzleNo)
+                localStorage.setItem("solved", JSON.stringify(solved));
             } else {
                 alert("Wrong!")
             }
