@@ -157,7 +157,7 @@
             "rose",
             "black orchid",
             "gridlock", 
-            "timelord",
+            "time lord",
             "key to time",
             "eleventh hour",
             "timelash",
@@ -185,7 +185,7 @@
             "vampires of venice",
             "demons run",
             "strax",
-            "racknoss",
+            "racnoss",
             "bessie",
             "rory",
             "bad wolf",
@@ -225,6 +225,9 @@
 
             let answer = input.trim().toLowerCase().replaceAll(/[^0-9a-z ]/gi, "")
             
+            if (answer.startsWith("the ") && answer != "the silence") {
+                answer = answer.substring(4, answer.length)
+            }
             
             let solution = solutions[puzzleNo - 1]
 
